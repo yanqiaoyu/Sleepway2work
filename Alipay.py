@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-09 23:43:33
+@LastEditTime: 2020-06-14 13:58:23
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -20,7 +20,7 @@ class Alipay:
       init_device("Android")
       
    '''
-   @description: 支付宝->运动
+   @description: 支付宝->运动、收币
    @param {type} 
    @return: 
    '''
@@ -74,17 +74,17 @@ class Alipay:
 
    
    '''
-   @description: 支付宝->蚂蚁庄园->赶走盗贼
+   @description: 支付宝->蚂蚁庄园->赶走盗贼、找回小鸡、喂鸡
    @param {type} 
    @return: 
    '''
-   def KickThiefChickenAndFeed(self):
+   def AntManor(self):
 
       self.d.app_start("com.eg.android.AlipayGphone", stop=True)
       time.sleep(self.Time2Wait)
       self.d(resourceId="com.alipay.android.phone.openplatform:id/app_text", text="蚂蚁庄园").click()
-
       time.sleep(self.Time2Wait)
+
       #检测盗贼鸡
       if not exists(Template(self.ImgPath+"ThiefChicken.png")):
          print("No Thief Chicken Now~")
@@ -111,6 +111,11 @@ class Alipay:
 
       time.sleep(self.Time2Wait)
    
+   '''
+   @description: 支付宝->朋友->蚂蚁财富
+   @param {type} 
+   @return: 
+   '''
    #最好把这个公众号置顶,这样就不需要做一个“找不到就往下滚”的操作了
    def GoldTicket(self):
       
@@ -133,8 +138,20 @@ class Alipay:
       self.d(text="天天领黄金").click()
 
       sleep(self.Time2Wait)
+
+      #领完黄金票，点击XX
+      if self.d.xpath('//*[@resource-id="root"] \
+                        /android.view.View[13] \
+                        /android.view.View[3] \
+                        /android.view.View[2]').exists:
+         self.d.xpath('//*[@resource-id="root"] \
+                        /android.view.View[13] \
+                        /android.view.View[3] \
+                        /android.view.View[2]').click()
+
+      sleep(self.Time2Wait)
       
-      #获取当前黄金票的数量，这种获取方式鲁棒性不太行，暂时没有找到更好的办法
+      #获取当前黄金票的数量
       nowGoldTicket = self.d.xpath('//*[@resource-id="root"] \
                         /android.view.View[2]/android.view.View[1]/android.view.View[3] \
                         /android.view.View[2]/android.view.View[1]').get_text()
@@ -142,3 +159,49 @@ class Alipay:
       sleep(self.Time2Wait)
 
       print("Now we have Gold Ticket:%s" % nowGoldTicket)
+
+   '''
+   @description: 支付宝->蚂蚁森林
+   @param {type} 
+   @return: 
+   '''
+   def AntForest(self):
+      #打开支付宝，进入蚂蚁森林
+      self.d.app_start("com.eg.android.AlipayGphone", stop=True)
+      sleep(self.Time2Wait)
+      self.d(resourceId="com.alipay.android.phone.openplatform:id/app_text", text="蚂蚁森林").click()
+      time.sleep(self.Time2Wait)
+
+      #收集能量
+      while exists(Template(self.ImgPath+"Energy.png")):
+         touch(Template(self.ImgPath+"Energy.png"))
+
+      time.sleep(self.Time2Wait)
+
+      #获取当前能量
+      NowEnergy = self.d.xpath('//*[@resource-id="J_home_panel"] \
+               /android.view.View[1]/android.view.View[1] \
+               /android.view.View[1]').get_text()
+      
+      time.sleep(self.Time2Wait)
+
+
+   '''
+   @description: 仅用于测试
+   @param {type} 
+   @return: 
+   '''
+   def Test(self):
+      '''
+      while exists(Template(self.ImgPath+"Energy.png")):
+         touch(Template(self.ImgPath+"Energy.png"))
+      '''
+      #领完黄金票，点击XX
+      if self.d.xpath('//*[@resource-id="root"] \
+                        /android.view.View[13] \
+                        /android.view.View[3] \
+                        /android.view.View[2]').exists:
+         self.d.xpath('//*[@resource-id="root"] \
+                        /android.view.View[13] \
+                        /android.view.View[3] \
+                        /android.view.View[2]').click()

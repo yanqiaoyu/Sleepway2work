@@ -1,12 +1,28 @@
+'''
+@Author: YanQiaoYu
+@Github: https://github.com/yanqiaoyu?tab=repositories
+@Date: 2020-06-01 23:06:39
+@LastEditors: YanQiaoYu
+@LastEditTime: 2020-06-10 23:16:05
+@FilePath: /Sleepway2work/Maxplus.py
+'''
 # -*- coself.ding: UTF-8 -*- 
 import uiautomator2 as u2
 import time
-from connmysql import ConnDB
+#from connmysql import ConnDB
 
-class dotamax():
+class Maxplus():
+
+   Time2Wait = 5
+
    def __init__(self,d):
       self.d =  d
 
+   '''
+   @description: 登录即可领金币
+   @param {type} 
+   @return: 
+   '''
    def Gold(self):
       print(self.d.info)
       #确保每次打开都是重新打开,而不是调用后台已存在的进程
@@ -16,7 +32,7 @@ class dotamax():
       #监控弹窗(在线程中监控)
       self.d.watcher.when("确定").click()
       self.d.watcher.start()
-      time.sleep(10)
+      time.sleep(self.Time2Wait)
       self.d.watcher.stop()
 
       #点击左上角的用户资料
@@ -40,6 +56,4 @@ class dotamax():
       #关闭当前APP,这里如果用了app_clear会导致需要重新登陆账号
       self.d.app_stop('com.dotamax.app')
 
-handle = dotamax(u2.connect())
-handle.Gold()
 
