@@ -18,12 +18,12 @@ d = u2.connect()
 #'''
 a = Alipay(d)
 #a.Test()
-'''
+
 a.Sports()
 a.GoldTicket()
 a.AntManor()
 a.AntForest()
-'''
+
 b = Maxplus(d)
 b.Gold()
 c = JingDong(d)

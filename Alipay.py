@@ -36,6 +36,14 @@ class Alipay:
       #进入走路线
       self.d(text="走路线").click()
 
+      time.sleep(self.Time2Wait)
+
+      #GO
+      self.d.xpath('//*[@resource-id="__react-content"]/android.view.View[1]/android.view.View[6]/android.view.View[2]').click()
+
+      #这里等久一点
+      time.sleep(10)
+
       #点宝箱
       PurpleFlag = SuperPurpleFlag = GoldFlag = 1
       while True:
@@ -69,10 +77,8 @@ class Alipay:
       RunCoin = self.d.xpath('//*[@resource-id="__react-content"]/android.view.View[1]/android.view.View[4]/android.view.View[1]/android.view.View[2]').get_text()
       print("Now RunCoin:",RunCoin)
 
-      #GO
-      self.d.xpath('//*[@resource-id="__react-content"]/android.view.View[1]/android.view.View[6]/android.view.View[2]').click()
+      time.sleep(self.Time2Wait)
 
-   
    '''
    @description: 支付宝->蚂蚁庄园->赶走盗贼、找回小鸡、喂鸡
    @param {type} 
@@ -134,8 +140,22 @@ class Alipay:
 
       sleep(self.Time2Wait)
 
-      #领取黄金票
-      self.d(text="天天领黄金").click()
+      #假设今天蚂蚁财富并没有开放这个接口到首页,需要一个备份方案
+      try:
+         #领取黄金票
+         self.d(text="天天领黄金").click()
+         if not self.d(text="提取黄金").exists():
+            raise Exception("Not this way!")
+      except:
+         print("Chosing Another Way to Gold Ticket")
+         self.d.press("back")
+         sleep(self.Time2Wait)
+         self.d(resourceId="com.alipay.android.widget.fortunehome:id/tab_description").click()
+         sleep(self.Time2Wait)
+         self.d(resourceId="com.alipay.android.widget.fortunehome:id/title", text="黄金").click()
+         sleep(self.Time2Wait)
+         self.d(text="黄金票").click()
+         
 
       sleep(self.Time2Wait)
 
@@ -152,9 +172,12 @@ class Alipay:
       sleep(self.Time2Wait)
       
       #获取当前黄金票的数量
-      nowGoldTicket = self.d.xpath('//*[@resource-id="root"] \
-                        /android.view.View[2]/android.view.View[1]/android.view.View[3] \
-                        /android.view.View[2]/android.view.View[1]').get_text()
+      tmpStack=[]
+      for elem in self.d.xpath("//android.view.View").all():
+         if elem.text:   
+            tmpStack.append(elem.text)
+            if elem.text=='份':
+               nowGoldTicket = tmpStack[-2]
 
       sleep(self.Time2Wait)
 
@@ -173,16 +196,18 @@ class Alipay:
       time.sleep(self.Time2Wait)
 
       #收集能量
-      while exists(Template(self.ImgPath+"Energy.png")):
+      #由于广告中也可能存在能量球被匹配到，所以设置一个跳出下面这个循环的计时器
+      WhileCount = 0
+      while exists(Template(self.ImgPath+"Energy.png")) and WhileCount < 5:
          touch(Template(self.ImgPath+"Energy.png"))
+         WhileCount += 1
 
       time.sleep(self.Time2Wait)
 
       #获取当前能量
-      NowEnergy = self.d.xpath('//*[@resource-id="J_home_panel"] \
-               /android.view.View[1]/android.view.View[1] \
-               /android.view.View[1]').get_text()
-      
+      NowEnergy = self.d(resourceId="J_userEnergy").get_text()
+      print("Now Energy is %s", NowEnergy)
+
       time.sleep(self.Time2Wait)
 
 
