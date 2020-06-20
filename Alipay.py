@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-14 13:58:23
+@LastEditTime: 2020-06-20 16:42:34
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -74,9 +74,15 @@ class Alipay:
 
       time.sleep(self.Time2Wait)
 
-      RunCoin = self.d.xpath('//*[@resource-id="__react-content"]/android.view.View[1]/android.view.View[4]/android.view.View[1]/android.view.View[2]').get_text()
+      #获取当前运动币的数量
+      tmpStack=[]
+      for elem in self.d.xpath("//android.view.View").all():
+         if elem.text:   
+            tmpStack.append(elem.text)
+            if elem.text=='币':
+               RunCoin = tmpStack[-2]
+               
       print("Now RunCoin:",RunCoin)
-
       time.sleep(self.Time2Wait)
 
    '''
@@ -105,16 +111,31 @@ class Alipay:
 
       time.sleep(self.Time2Wait)
 
-      #找回我们的小鸡
+      #去朋友那里找回我们的小鸡
       if exists(Template(self.ImgPath+"GotoCallBack.png")):
          touch(Template(self.ImgPath+"GotoCallBack.png"))
          sleep(self.Time2Wait)
-         touch(Template(self.ImgPath+"CallBackOurChicken.png"))
-         sleep(self.Time2Wait)
+         #去了好友那里需要召回的是盗贼鸡
+         #盗贼鸡存在两种可能,一种是其他人的盗贼鸡,一种是是自己的盗贼鸡
+         #先利用find_all找出所有存在的鸡的坐标，再依次点击
+         #这里不用exist的原因是，可能永远匹配别人的盗贼鸡而导致死循环
+         Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
+         #Not Null
+         if Dic:
+            for i in Dic:   
+               touch(i['result'])
+               sleep(self.Time2Wait)
+               if exists(Template(self.ImgPath+"InformFriendofThiefChicken.png")):
+                  touch(Template(self.ImgPath+"InformFriendofThiefChicken.png"))
+                  sleep(self.Time2Wait)
 
-      #喂饲料，不管有没有都退出
+         sleep(self.Time2Wait)
+         
+      #喂饲料
       touch(Template(self.ImgPath+"feed.png"))
 
+      #获取爱心个数,饲料数
+      #此应用暂不支持
       time.sleep(self.Time2Wait)
    
    '''
@@ -179,9 +200,9 @@ class Alipay:
             if elem.text=='份':
                nowGoldTicket = tmpStack[-2]
 
-      sleep(self.Time2Wait)
-
       print("Now we have Gold Ticket:%s" % nowGoldTicket)
+      
+      sleep(self.Time2Wait)
 
    '''
    @description: 支付宝->蚂蚁森林
@@ -194,6 +215,11 @@ class Alipay:
       sleep(self.Time2Wait)
       self.d(resourceId="com.alipay.android.phone.openplatform:id/app_text", text="蚂蚁森林").click()
       time.sleep(self.Time2Wait)
+
+      #如果存在弹窗广告
+      if self.d(text="关闭蒙层").exists(timeout=3):
+         self.d(text="关闭蒙层").click()
+      
 
       #收集能量
       #由于广告中也可能存在能量球被匹配到，所以设置一个跳出下面这个循环的计时器
@@ -217,16 +243,12 @@ class Alipay:
    @return: 
    '''
    def Test(self):
-      '''
-      while exists(Template(self.ImgPath+"Energy.png")):
-         touch(Template(self.ImgPath+"Energy.png"))
-      '''
-      #领完黄金票，点击XX
-      if self.d.xpath('//*[@resource-id="root"] \
-                        /android.view.View[13] \
-                        /android.view.View[3] \
-                        /android.view.View[2]').exists:
-         self.d.xpath('//*[@resource-id="root"] \
-                        /android.view.View[13] \
-                        /android.view.View[3] \
-                        /android.view.View[2]').click()
+      pass
+      Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
+      print("We find:",Dic)
+      if Dic:
+         for i in Dic:
+            print(i['result'])
+            touch(i['result'])
+   
+   
