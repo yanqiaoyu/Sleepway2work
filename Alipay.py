@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-20 16:42:34
+@LastEditTime: 2020-06-20 22:44:39
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -47,31 +47,33 @@ class Alipay:
       #点宝箱
       PurpleFlag = SuperPurpleFlag = GoldFlag = 1
       while True:
+         try:
+            if exists(Template(self.ImgPath+"PurpleChest.png")):
+               touch(Template(self.ImgPath+"PurpleChest.png"))
+               sleep(self.Time2Wait)
+               self.d(text="收下运动币").click()
+            else:
+               PurpleFlag = 0
 
-         if exists(Template(self.ImgPath+"PurpleChest.png")):
-            touch(Template(self.ImgPath+"PurpleChest.png"))
-            sleep(self.Time2Wait)
-            self.d(text="收下运动币").click()
-         else:
-            PurpleFlag = 0
+            if exists(Template(self.ImgPath+"SuperPurpleChest.png")):
+               touch(Template(self.ImgPath+"SuperPurpleChest.png"))
+               sleep(self.Time2Wait)
+               self.d(text="收下运动币").click()
+            else:
+               SuperPurpleFlag = 0
 
-         if exists(Template(self.ImgPath+"SuperPurpleChest.png")):
-            touch(Template(self.ImgPath+"SuperPurpleChest.png"))
-            sleep(self.Time2Wait)
-            self.d(text="收下运动币").click()
-         else:
-            SuperPurpleFlag = 0
+            if exists(Template(self.ImgPath+"GoldChest.png")):
+               touch(Template(self.ImgPath+"GoldChest.png"))
+               sleep(self.Time2Wait)
+               self.d(text="收下运动币").click()
+            else:
+               GoldFlag = 0
 
-         if exists(Template(self.ImgPath+"GoldChest.png")):
-            touch(Template(self.ImgPath+"GoldChest.png"))
-            sleep(self.Time2Wait)
-            self.d(text="收下运动币").click()
-         else:
-            GoldFlag = 0
-
-         if PurpleFlag == SuperPurpleFlag == GoldFlag == 0:
+            if PurpleFlag == SuperPurpleFlag == GoldFlag == 0:
+               break
+         except Exception:
             break
-
+         
       time.sleep(self.Time2Wait)
 
       #获取当前运动币的数量
@@ -111,6 +113,7 @@ class Alipay:
 
       time.sleep(self.Time2Wait)
 
+      '''
       #去朋友那里找回我们的小鸡
       if exists(Template(self.ImgPath+"GotoCallBack.png")):
          touch(Template(self.ImgPath+"GotoCallBack.png"))
@@ -130,9 +133,28 @@ class Alipay:
                   sleep(self.Time2Wait)
 
          sleep(self.Time2Wait)
-         
+      '''   
       #喂饲料
       touch(Template(self.ImgPath+"feed.png"))
+
+      time.sleep(self.Time2Wait)
+
+      if exists(Template(self.ImgPath+"FindChicken.png")):
+         time.sleep(self.Time2Wait)
+         touch(Template(self.ImgPath+"FindChicken.png"))
+         #去了好友那里需要召回的是盗贼鸡
+         #盗贼鸡存在两种可能,一种是其他人的盗贼鸡,一种是是自己的盗贼鸡
+         #先利用find_all找出所有存在的鸡的坐标，再依次点击
+         #这里不用exist的原因是，可能永远匹配别人的盗贼鸡而导致死循环
+         Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
+         #Not Null
+         if Dic:
+            for i in Dic:   
+               touch(i['result'])
+               sleep(self.Time2Wait)
+               if exists(Template(self.ImgPath+"InformFriendofThiefChicken.png")):
+                  touch(Template(self.ImgPath+"InformFriendofThiefChicken.png"))
+                  sleep(self.Time2Wait)         
 
       #获取爱心个数,饲料数
       #此应用暂不支持
