@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-20 17:40:25
+@LastEditTime: 2020-06-21 13:38:56
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -52,7 +52,8 @@ class JingDong:
             time.sleep(self.Time2Wait)
             JingDou = self.d(resourceId="com.jd.lib.personal:id/ah_").get_text()
             print(JingDou)
-            time.sleep(self.Time2Wait)
+        
+        time.sleep(self.Time2Wait)
 
     '''
     @description: 京东金融 -> 签到领钢镚
@@ -71,6 +72,8 @@ class JingDong:
 
         if exists(Template(self.ImgPath+"GetGangBeng.png")):
             touch(Template(self.ImgPath+"GetGangBeng.png"))
+
+        time.sleep(self.Time2Wait)
 
     '''
     @description: 京东金融 -> 京贴

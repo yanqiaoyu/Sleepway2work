@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-20 22:44:39
+@LastEditTime: 2020-06-21 13:36:34
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -105,11 +105,14 @@ class Alipay:
          pass
       else:
          while exists(Template(self.ImgPath+"ThiefChicken.png")):
-            touch(Template(self.ImgPath+"ThiefChicken.png"))
-            time.sleep(self.Time2Wait)
-            touch(Template(self.ImgPath+"KickThiefChicken.png"))
-            time.sleep(self.Time2Wait)
-            touch(Template(self.ImgPath+"NoComment.png"))
+            try:
+               touch(Template(self.ImgPath+"ThiefChicken.png"))
+               time.sleep(self.Time2Wait)
+               touch(Template(self.ImgPath+"KickThiefChicken.png"))
+               time.sleep(self.Time2Wait)
+               touch(Template(self.ImgPath+"NoComment.png"))
+            except Exception:
+               continue
 
       time.sleep(self.Time2Wait)
 
@@ -185,9 +188,16 @@ class Alipay:
 
       #假设今天蚂蚁财富并没有开放这个接口到首页,需要一个备份方案
       try:
+         swipe((793, 573),(289, 573))
+         sleep(self.Time2Wait)
          #领取黄金票
          self.d(text="天天领黄金").click()
-         if not self.d(text="提取黄金").exists():
+         sleep(self.Time2Wait)
+         if self.d(text="提取黄金").exists():
+            pass
+         elif self.d(text="立即领取").exists():
+            self.d(text="立即领取").click()
+         else:
             raise Exception("Not this way!")
       except:
          print("Chosing Another Way to Gold Ticket")
@@ -244,12 +254,13 @@ class Alipay:
       
 
       #收集能量
-      #由于广告中也可能存在能量球被匹配到，所以设置一个跳出下面这个循环的计时器
-      WhileCount = 0
-      while exists(Template(self.ImgPath+"Energy.png")) and WhileCount < 5:
-         touch(Template(self.ImgPath+"Energy.png"))
-         WhileCount += 1
-
+      #广告中也可能存在能量球被匹配到
+      Dic=find_all(Template(self.ImgPath+"Energy.png"))
+      #If Not Null
+      if Dic:
+         for i in Dic:   
+            touch(i['result'])
+            sleep(self.Time2Wait)
       time.sleep(self.Time2Wait)
 
       #获取当前能量
