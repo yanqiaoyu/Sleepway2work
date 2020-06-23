@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-10 23:16:05
+@LastEditTime: 2020-06-20 16:47:27
 @FilePath: /Sleepway2work/Maxplus.py
 '''
 # -*- coself.ding: UTF-8 -*- 
@@ -24,7 +24,6 @@ class Maxplus():
    @return: 
    '''
    def Gold(self):
-      print(self.d.info)
       #确保每次打开都是重新打开,而不是调用后台已存在的进程
       self.d.app_start("com.dotamax.app", stop=True)
 
