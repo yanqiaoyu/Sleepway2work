@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-21 13:38:56
+@LastEditTime: 2020-06-23 20:42:47
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -88,6 +88,8 @@ class JingDong:
         
         self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="领金贴").click()
 
+        time.sleep(self.Time2Wait)
+
         try:
             self.d(text="签到领金贴").click()
             time.sleep(self.Time2Wait)
@@ -124,6 +126,7 @@ class JingDong:
             self.d(text="双签领豆").click()
 
             if exists(Template(self.ImgPath+"CompleteDoubleCheck.png")):
+                time.sleep(self.Time2Wait)
                 touch(Template(self.ImgPath+"CompleteDoubleCheck.png"))
         except Exception:
             pass

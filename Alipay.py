@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-21 13:36:34
+@LastEditTime: 2020-06-23 20:54:31
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -145,11 +145,13 @@ class Alipay:
       if exists(Template(self.ImgPath+"FindChicken.png")):
          time.sleep(self.Time2Wait)
          touch(Template(self.ImgPath+"FindChicken.png"))
+         time.sleep(self.Time2Wait)
          #去了好友那里需要召回的是盗贼鸡
          #盗贼鸡存在两种可能,一种是其他人的盗贼鸡,一种是是自己的盗贼鸡
          #先利用find_all找出所有存在的鸡的坐标，再依次点击
          #这里不用exist的原因是，可能永远匹配别人的盗贼鸡而导致死循环
          Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
+         time.sleep(self.Time2Wait)
          #Not Null
          if Dic:
             for i in Dic:   
@@ -158,7 +160,8 @@ class Alipay:
                if exists(Template(self.ImgPath+"InformFriendofThiefChicken.png")):
                   touch(Template(self.ImgPath+"InformFriendofThiefChicken.png"))
                   sleep(self.Time2Wait)         
-
+         time.sleep(self.Time2Wait)
+         touch(Template(self.ImgPath+"feed.png"))
       #获取爱心个数,饲料数
       #此应用暂不支持
       time.sleep(self.Time2Wait)
