@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-24 20:14:24
+@LastEditTime: 2020-06-24 20:29:50
 @FilePath: /Sleepway2work/sleepway2work.py
 '''
 from Alipay import Alipay
@@ -17,7 +17,7 @@ os.system("weditor -q &")
 d = u2.connect()
 d.unlock()
 d.dump_hierarchy()
-'''
+
 a = Alipay(d)
 #a.Test()
 
@@ -28,10 +28,10 @@ a.AntForest()
 
 b = Maxplus(d)
 b.Gold()
-'''
+
 c = JingDong(d)
 c.JingDou()
-#c.GangBeng()
-#c.JingTie()
-#c.DoubleCheck()
+c.GangBeng()
+c.JingTie()
+c.DoubleCheck()
 
