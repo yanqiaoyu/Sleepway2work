@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-23 20:42:47
+@LastEditTime: 2020-06-24 20:17:17
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -42,11 +42,24 @@ class JingDong:
 
         #签到
         try:
+            
             self.d(text="去签到领京豆").click()
+            
+            time.sleep(self.Time2Wait)
+            '''
+            self.d(text="签到领京豆").click()
 
             time.sleep(self.Time2Wait)
 
-            self.d(text="签到领京豆").click()
+            self.d.press("back")
+
+            time.sleep(self.Time2Wait)
+            '''
+
+            self.d(text="抽京豆").click()
+
+            GoIndex = assert_exists(Template(self.ImgPath+"GO.png"))
+            touch(GoIndex)
         except Exception:
             self.d.press("back")
             time.sleep(self.Time2Wait)
@@ -67,6 +80,7 @@ class JingDong:
         time.sleep(self.Time2Wait)
 
         self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="每日签到").click()
+        
 
         time.sleep(self.Time2Wait)
 
@@ -86,11 +100,14 @@ class JingDong:
 
         time.sleep(self.Time2Wait)
         
-        self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="领金贴").click()
+        #self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="领金贴").click()
+        swipe((540, 1550),(540, 950))
 
         time.sleep(self.Time2Wait)
 
         try:
+            self.d(resourceId="com.jd.jrapp:id/tv_profit", text="金贴").click()
+            time.sleep(self.Time2Wait)
             self.d(text="签到领金贴").click()
             time.sleep(self.Time2Wait)
         except Exception:
