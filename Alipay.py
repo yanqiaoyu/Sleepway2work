@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-23 20:54:31
+@LastEditTime: 2020-06-25 08:52:20
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -196,12 +196,14 @@ class Alipay:
          #领取黄金票
          self.d(text="天天领黄金").click()
          sleep(self.Time2Wait)
+         '''
          if self.d(text="提取黄金").exists():
             pass
          elif self.d(text="立即领取").exists():
             self.d(text="立即领取").click()
          else:
             raise Exception("Not this way!")
+         '''
       except:
          print("Chosing Another Way to Gold Ticket")
          self.d.press("back")

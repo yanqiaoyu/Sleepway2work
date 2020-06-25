@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-24 20:17:17
+@LastEditTime: 2020-06-25 08:57:14
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -46,7 +46,7 @@ class JingDong:
             self.d(text="去签到领京豆").click()
             
             time.sleep(self.Time2Wait)
-            '''
+            
             self.d(text="签到领京豆").click()
 
             time.sleep(self.Time2Wait)
@@ -54,7 +54,7 @@ class JingDong:
             self.d.press("back")
 
             time.sleep(self.Time2Wait)
-            '''
+            
 
             self.d(text="抽京豆").click()
 
