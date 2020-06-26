@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-25 08:52:20
+@LastEditTime: 2020-06-26 10:32:27
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -218,14 +218,12 @@ class Alipay:
       sleep(self.Time2Wait)
 
       #领完黄金票，点击XX
-      if self.d.xpath('//*[@resource-id="root"] \
-                        /android.view.View[13] \
-                        /android.view.View[3] \
-                        /android.view.View[2]').exists:
-         self.d.xpath('//*[@resource-id="root"] \
-                        /android.view.View[13] \
-                        /android.view.View[3] \
-                        /android.view.View[2]').click()
+      try:
+         CloseIndex = assert_exists(Template(self.ImgPath+"CLose.png"))
+         sleep(self.Time2Wait)
+         touch(CloseIndex)
+      except Exception:
+         print("No Need to Close Window~")
 
       sleep(self.Time2Wait)
       
@@ -236,6 +234,8 @@ class Alipay:
             tmpStack.append(elem.text)
             if elem.text=='份':
                nowGoldTicket = tmpStack[-2]
+      
+      sleep(self.Time2Wait)
 
       print("Now we have Gold Ticket:%s" % nowGoldTicket)
       
@@ -257,10 +257,13 @@ class Alipay:
       if self.d(text="关闭蒙层").exists(timeout=3):
          self.d(text="关闭蒙层").click()
       
-
+      time.sleep(self.Time2Wait)
       #收集能量
       #广告中也可能存在能量球被匹配到
       Dic=find_all(Template(self.ImgPath+"Energy.png"))
+      if not Dic:
+         Dic = find_all(Template(self.ImgPath+"Energy2.png"))
+      time.sleep(self.Time2Wait)
       #If Not Null
       if Dic:
          for i in Dic:   
@@ -270,7 +273,7 @@ class Alipay:
 
       #获取当前能量
       NowEnergy = self.d(resourceId="J_userEnergy").get_text()
-      print("Now Energy is %s", NowEnergy)
+      print("Now Energy is:"+NowEnergy)
 
       time.sleep(self.Time2Wait)
 
@@ -282,11 +285,19 @@ class Alipay:
    '''
    def Test(self):
       pass
-      Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
-      print("We find:",Dic)
+      
+      Index = find_all(Template(self.ImgPath+"Energy.png"))
+      Index2 = find_all(Template(self.ImgPath+"Energy2.png"))
+      print("!!!!!!!!!!!!!!!",Index,Index2)
+      '''
+      Dic=find_all(Template(self.ImgPath+"Energy.png"))
+      time.sleep(self.Time2Wait)
+      #If Not Null
       if Dic:
-         for i in Dic:
-            print(i['result'])
+         for i in Dic:   
             touch(i['result'])
+            sleep(self.Time2Wait)
+      time.sleep(self.Time2Wait)
+      '''
    
    

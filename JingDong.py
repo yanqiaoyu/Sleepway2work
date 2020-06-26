@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-25 08:57:14
+@LastEditTime: 2020-06-26 10:15:35
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -101,7 +101,7 @@ class JingDong:
         time.sleep(self.Time2Wait)
         
         #self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="领金贴").click()
-        swipe((540, 1550),(540, 950))
+        swipe((540, 1550),(540, 650))
 
         time.sleep(self.Time2Wait)
 
