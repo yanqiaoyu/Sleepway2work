@@ -11,8 +11,11 @@
 ```shell
 python3 sleepway2work.py
 ```
-注意：1.请保持UIAutomator2与手机的通信顺畅
-     2.启动脚本时，请关闭Lantern(如果有开)，否则会出现启动异常
+注意：
+
+1.请保持UIAutomator2与手机的通信顺畅
+
+2.启动脚本时，请关闭Lantern(如果有开)，否则会出现启动异常
 
 
 ## 目前支持的自动化
