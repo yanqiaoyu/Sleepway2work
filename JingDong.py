@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-26 10:15:35
+@LastEditTime: 2020-06-29 09:18:49
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -75,19 +75,25 @@ class JingDong:
     '''    
     def GangBeng(self):
         #打开APP
-        self.d.app_start("com.jd.jrapp", stop=True)
+        #考虑到可能有广告弹窗影响自动化的鲁棒性,增加for循环+try的代码
+        for i in range(3):
+            try:
+                self.d.app_start("com.jd.jrapp", stop=True)
 
-        time.sleep(self.Time2Wait)
+                time.sleep(self.Time2Wait)
 
-        self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="每日签到").click()
-        
+                self.d(resourceId="com.jd.jrapp:id/home_header_grid_title", text="每日签到").click()
+                
 
-        time.sleep(self.Time2Wait)
+                time.sleep(self.Time2Wait)
 
-        if exists(Template(self.ImgPath+"GetGangBeng.png")):
-            touch(Template(self.ImgPath+"GetGangBeng.png"))
+                if exists(Template(self.ImgPath+"GetGangBeng.png")):
+                    touch(Template(self.ImgPath+"GetGangBeng.png"))
 
-        time.sleep(self.Time2Wait)
+                time.sleep(self.Time2Wait)
+                break
+            except Exception:
+                continue
 
     '''
     @description: 京东金融 -> 京贴
