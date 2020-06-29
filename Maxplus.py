@@ -3,13 +3,15 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-20 16:47:27
+@LastEditTime: 2020-06-29 23:52:11
 @FilePath: /Sleepway2work/Maxplus.py
 '''
 # -*- coself.ding: UTF-8 -*- 
 import uiautomator2 as u2
 import time
+from helper import logdeco
 #from connmysql import ConnDB
+
 
 class Maxplus():
 
@@ -23,6 +25,7 @@ class Maxplus():
    @param {type} 
    @return: 
    '''
+   @logdeco
    def Gold(self):
       #确保每次打开都是重新打开,而不是调用后台已存在的进程
       self.d.app_start("com.dotamax.app", stop=True)
@@ -39,8 +42,8 @@ class Maxplus():
 
       #获取当前的金币数
       nowGold = self.d(resourceId="com.dotamax.app:id/tv_max_coin").get_text()
-      localtime = time.asctime( time.localtime(time.time()))
-      print(localtime,"Now Gold:",nowGold)
+      #localtime = time.asctime( time.localtime(time.time()))
+      print("Now Gold:",nowGold)
 
       '''
       db = ConnDB()
