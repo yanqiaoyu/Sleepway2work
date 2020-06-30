@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-29 23:21:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 14:02:02
+@LastEditTime: 2020-06-30 17:30:48
 @FilePath: /Sleepway2work/helper.py
 '''
 import time
@@ -49,7 +49,13 @@ log_mgr = LogMgr()
 def logdeco(func):
     def wrapper(*args, **kw):
         log_mgr.info('[{}]Begin'.format(func.__qualname__ ))
+
+        local_time = time.time()
+
         dicResult = func(*args, **kw)
+
+        log_mgr.info('[{}]Running Time:{}'.format(func.__qualname__, time.time() - local_time))
+
         if dicResult:
             log_mgr.info('[{}]Result:{}'.format(func.__qualname__, dicResult))
         log_mgr.info('[{}]Finish'.format(func.__qualname__ ))

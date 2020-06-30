@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 09:45:22
+@LastEditTime: 2020-06-30 17:15:54
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -229,7 +229,7 @@ class Alipay:
       if result:
          result["GoldTicket"] = nowGoldTicket
       sleep(self.Time2Wait)
-      return nowGoldTicket
+      return result
 
    '''
    @description: 支付宝->蚂蚁森林

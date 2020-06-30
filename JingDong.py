@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 13:28:37
+@LastEditTime: 2020-06-30 17:43:54
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -39,7 +39,7 @@ class JingDong:
             time.sleep(self.Time2Wait)
 
             #进入签到
-            self.d(resourceId="com.jd.lib.personal:id/ah9", text="京豆").click()
+            self.d(text="京豆").click()
 
             time.sleep(self.Time2Wait)
 
@@ -140,7 +140,7 @@ class JingDong:
         time.sleep(self.Time2Wait)
 
         #进入签到
-        self.d(resourceId="com.jd.lib.personal:id/ah9", text="京豆").click()
+        self.d(text="京豆").click()
 
         time.sleep(self.Time2Wait)
 
@@ -182,7 +182,7 @@ class JingDong:
             time.sleep(self.Time2Wait)
 
             #这里本来想用遍历XPath的方式找到京豆的，但是Text为空
-            JingDou = d(resourceId="com.jd.lib.personal:id/ah_").get_text()
+            JingDou = self.d(resourceId="com.jd.lib.personal:id/ah7").get_text()
 
             if JingDou:
                 result["JingDou"] = JingDou
@@ -203,9 +203,9 @@ class JingDong:
             time.sleep(self.Time2Wait)
 
             #钢镚
-            Gangbeng = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=1)
+            Gangbeng = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=1).get_text()
             #京贴
-            JingTie = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=2)
+            JingTie = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=2).get_text()
 
             if Gangbeng:
                 result["GangBeng"] = Gangbeng
