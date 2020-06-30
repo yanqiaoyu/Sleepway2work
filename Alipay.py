@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 17:15:54
+@LastEditTime: 2020-06-30 23:45:27
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -226,7 +226,7 @@ class Alipay:
 
       #print("Now we have Gold Ticket:%s" % nowGoldTicket)
       result = {}
-      if result:
+      if nowGoldTicket:
          result["GoldTicket"] = nowGoldTicket
       sleep(self.Time2Wait)
       return result

@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 17:53:20
+@LastEditTime: 2020-06-30 22:32:21
 @FilePath: /Sleepway2work/sleepway2work.py
 '''
 from Alipay import Alipay
@@ -19,7 +19,7 @@ d.unlock()
 
 a = Alipay(d)
 #a.Test()
-'''
+
 a.Sports()
 a.GoldTicket()
 a.AntManor()
@@ -27,19 +27,11 @@ a.AntForest()
 
 b = Maxplus(d)
 b.Gold()
-'''
-'''
+
 c = JingDong(d)
 c.JingDou()
 c.GangBeng()
 c.JingTie()
 c.DoubleCheck()
 c.CaculateAll()
-'''
-c = JingDong(d)
-JDList = [
-    'JingDou',
-    'GangBeng',
-]
-for func in JDList:
-    c.func
+
