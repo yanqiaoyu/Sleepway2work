@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-29 23:53:50
+@LastEditTime: 2020-06-30 14:02:11
 @FilePath: /Sleepway2work/sleepway2work.py
 '''
 from Alipay import Alipay
@@ -12,7 +12,7 @@ from JingDong import JingDong
 import uiautomator2 as u2
 import os
 
-#os.sys("weditor -q &")
+
 
 d = u2.connect()
 d.unlock()
@@ -30,6 +30,7 @@ b.Gold()
 
 c = JingDong(d)
 c.JingDou()
+
 c.GangBeng()
 c.JingTie()
 c.DoubleCheck()

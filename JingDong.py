@@ -3,13 +3,14 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-29 09:18:49
+@LastEditTime: 2020-06-30 13:28:37
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
 import uiautomator2 as u2
 import time
 from airtest.core.api import *
+from helper import logdeco
 
 class JingDong:
     ImgPath = "./JingDongImg/"
@@ -24,25 +25,25 @@ class JingDong:
     @param {type} 
     @return: 
     '''
+    @logdeco
     def JingDou(self):
-        #确保每次打开都是重新打开,而不是调用后台已存在的进程
-        self.d.app_start("com.jingdong.app.mall", stop=True)
-
-        time.sleep(self.Time2Wait)
-
-        #进入个人页面
-        self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
-
-        time.sleep(self.Time2Wait)
-
-        #进入签到
-        self.d(resourceId="com.jd.lib.personal:id/ah9", text="京豆").click()
-
-        time.sleep(self.Time2Wait)
-
-        #签到
         try:
-            
+            #确保每次打开都是重新打开,而不是调用后台已存在的进程
+            self.d.app_start("com.jingdong.app.mall", stop=True)
+
+            time.sleep(self.Time2Wait)
+
+            #进入个人页面
+            self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
+
+            time.sleep(self.Time2Wait)
+
+            #进入签到
+            self.d(resourceId="com.jd.lib.personal:id/ah9", text="京豆").click()
+
+            time.sleep(self.Time2Wait)
+
+            #签到
             self.d(text="去签到领京豆").click()
             
             time.sleep(self.Time2Wait)
@@ -61,10 +62,7 @@ class JingDong:
             GoIndex = assert_exists(Template(self.ImgPath+"GO.png"))
             touch(GoIndex)
         except Exception:
-            self.d.press("back")
-            time.sleep(self.Time2Wait)
-            JingDou = self.d(resourceId="com.jd.lib.personal:id/ah_").get_text()
-            print(JingDou)
+            pass
         
         time.sleep(self.Time2Wait)
 
@@ -72,7 +70,8 @@ class JingDong:
     @description: 京东金融 -> 签到领钢镚
     @param {type} 
     @return: 
-    '''    
+    '''
+    @logdeco    
     def GangBeng(self):
         #打开APP
         #考虑到可能有广告弹窗影响自动化的鲁棒性,增加for循环+try的代码
@@ -87,8 +86,11 @@ class JingDong:
 
                 time.sleep(self.Time2Wait)
 
-                if exists(Template(self.ImgPath+"GetGangBeng.png")):
-                    touch(Template(self.ImgPath+"GetGangBeng.png"))
+                for i in range(3):
+                    if exists(Template(self.ImgPath+"GetGangBeng.png")):
+                        time.sleep(self.Time2Wait)
+                        touch(Template(self.ImgPath+"GetGangBeng.png"))
+                        break
 
                 time.sleep(self.Time2Wait)
                 break
@@ -100,6 +102,7 @@ class JingDong:
     @param {type} 
     @return: 
     '''
+    @logdeco
     def JingTie(self):
         #打开APP
         self.d.app_start("com.jd.jrapp", stop=True)
@@ -123,7 +126,8 @@ class JingDong:
     @description: 京东 -> 双签奖励
     @param {type} 
     @return: 
-    '''    
+    '''
+    @logdeco
     def DoubleCheck(self):
         #确保每次打开都是重新打开,而不是调用后台已存在的进程
         self.d.app_start("com.jingdong.app.mall", stop=True)
@@ -147,11 +151,72 @@ class JingDong:
             time.sleep(self.Time2Wait)
 
             self.d(text="双签领豆").click()
-
-            if exists(Template(self.ImgPath+"CompleteDoubleCheck.png")):
-                time.sleep(self.Time2Wait)
-                touch(Template(self.ImgPath+"CompleteDoubleCheck.png"))
+            for i in range(3):
+                if exists(Template(self.ImgPath+"CompleteDoubleCheck.png")):
+                    time.sleep(self.Time2Wait)
+                    touch(Template(self.ImgPath+"CompleteDoubleCheck.png"))
+                    break
         except Exception:
             pass
 
         time.sleep(self.Time2Wait)
+
+    '''
+    @description: 计算当前所有收益
+    @param {type} 
+    @return: 
+    '''
+    
+    @logdeco
+    def CaculateAll(self):
+        result={}
+        try:
+            #确保每次打开都是重新打开,而不是调用后台已存在的进程
+            self.d.app_start("com.jingdong.app.mall", stop=True)
+
+            time.sleep(self.Time2Wait)
+
+            #进入个人页面
+            self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
+
+            time.sleep(self.Time2Wait)
+
+            #这里本来想用遍历XPath的方式找到京豆的，但是Text为空
+            JingDou = d(resourceId="com.jd.lib.personal:id/ah_").get_text()
+
+            if JingDou:
+                result["JingDou"] = JingDou
+            else:
+                result["JingDou"] = None
+        except Exception:
+            pass
+
+        time.sleep(self.Time2Wait)
+
+        try:               
+            self.d.app_start("com.jd.jrapp", stop=True)
+
+            time.sleep(self.Time2Wait)
+
+            self.d(resourceId="com.jd.jrapp:id/iv_fifth_icon").click()
+
+            time.sleep(self.Time2Wait)
+
+            #钢镚
+            Gangbeng = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=1)
+            #京贴
+            JingTie = self.d(resourceId='com.jd.jrapp:id/tv_label_title', instance=2)
+
+            if Gangbeng:
+                result["GangBeng"] = Gangbeng
+            else:
+                result["GangBeng"] = None
+            
+            if JingTie:
+                result["JingTie"] = JingTie
+            else:
+                result["Jingtie"] = None
+        except Exception:
+            pass
+        
+        return result

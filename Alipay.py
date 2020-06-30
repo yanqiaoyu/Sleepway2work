@@ -3,11 +3,12 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-26 10:32:27
+@LastEditTime: 2020-06-30 09:45:22
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
 from airtest.core.api import *
+from helper import logdeco
 
 class Alipay:
 
@@ -24,6 +25,7 @@ class Alipay:
    @param {type} 
    @return: 
    '''
+   @logdeco
    def Sports(self):
 
       #打开支付宝
@@ -84,14 +86,19 @@ class Alipay:
             if elem.text=='币':
                RunCoin = tmpStack[-2]
                
-      print("Now RunCoin:",RunCoin)
+      #print("Now RunCoin:",RunCoin)
+      result = {}
+      if RunCoin:
+         result["RunCoin"] = RunCoin
       time.sleep(self.Time2Wait)
+      return result
 
    '''
    @description: 支付宝->蚂蚁庄园->赶走盗贼、找回小鸡、喂鸡
    @param {type} 
    @return: 
    '''
+   @logdeco
    def AntManor(self):
 
       self.d.app_start("com.eg.android.AlipayGphone", stop=True)
@@ -116,27 +123,6 @@ class Alipay:
 
       time.sleep(self.Time2Wait)
 
-      '''
-      #去朋友那里找回我们的小鸡
-      if exists(Template(self.ImgPath+"GotoCallBack.png")):
-         touch(Template(self.ImgPath+"GotoCallBack.png"))
-         sleep(self.Time2Wait)
-         #去了好友那里需要召回的是盗贼鸡
-         #盗贼鸡存在两种可能,一种是其他人的盗贼鸡,一种是是自己的盗贼鸡
-         #先利用find_all找出所有存在的鸡的坐标，再依次点击
-         #这里不用exist的原因是，可能永远匹配别人的盗贼鸡而导致死循环
-         Dic=find_all(Template(self.ImgPath+"ThiefChicken.png"))
-         #Not Null
-         if Dic:
-            for i in Dic:   
-               touch(i['result'])
-               sleep(self.Time2Wait)
-               if exists(Template(self.ImgPath+"InformFriendofThiefChicken.png")):
-                  touch(Template(self.ImgPath+"InformFriendofThiefChicken.png"))
-                  sleep(self.Time2Wait)
-
-         sleep(self.Time2Wait)
-      '''   
       #喂饲料
       touch(Template(self.ImgPath+"feed.png"))
 
@@ -171,6 +157,7 @@ class Alipay:
    @param {type} 
    @return: 
    '''
+   @logdeco
    #最好把这个公众号置顶,这样就不需要做一个“找不到就往下滚”的操作了
    def GoldTicket(self):
       
@@ -237,15 +224,19 @@ class Alipay:
       
       sleep(self.Time2Wait)
 
-      print("Now we have Gold Ticket:%s" % nowGoldTicket)
-      
+      #print("Now we have Gold Ticket:%s" % nowGoldTicket)
+      result = {}
+      if result:
+         result["GoldTicket"] = nowGoldTicket
       sleep(self.Time2Wait)
+      return nowGoldTicket
 
    '''
    @description: 支付宝->蚂蚁森林
    @param {type} 
    @return: 
    '''
+   @logdeco
    def AntForest(self):
       #打开支付宝，进入蚂蚁森林
       self.d.app_start("com.eg.android.AlipayGphone", stop=True)
@@ -273,10 +264,13 @@ class Alipay:
 
       #获取当前能量
       NowEnergy = self.d(resourceId="J_userEnergy").get_text()
-      print("Now Energy is:"+NowEnergy)
+      #print("Now Energy is:"+NowEnergy)
+      result = {}
+      if NowEnergy:
+         result["Energy"] = NowEnergy
 
       time.sleep(self.Time2Wait)
-
+      return result
 
    '''
    @description: 仅用于测试

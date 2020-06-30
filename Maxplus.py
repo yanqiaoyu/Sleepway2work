@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-29 23:52:11
+@LastEditTime: 2020-06-30 09:33:29
 @FilePath: /Sleepway2work/Maxplus.py
 '''
 # -*- coself.ding: UTF-8 -*- 
@@ -43,7 +43,15 @@ class Maxplus():
       #获取当前的金币数
       nowGold = self.d(resourceId="com.dotamax.app:id/tv_max_coin").get_text()
       #localtime = time.asctime( time.localtime(time.time()))
-      print("Now Gold:",nowGold)
+      #print("Now Gold:",nowGold)
+
+      #关闭当前APP,这里如果用了app_clear会导致需要重新登陆账号
+      self.d.app_stop('com.dotamax.app')
+
+      result = {}
+      if nowGold:
+         result["MaxplusGold"] = nowGold
+      return result
 
       '''
       db = ConnDB()
@@ -55,7 +63,6 @@ class Maxplus():
 
       time.sleep(3)
       '''
-      #关闭当前APP,这里如果用了app_clear会导致需要重新登陆账号
-      self.d.app_stop('com.dotamax.app')
+
 
 
