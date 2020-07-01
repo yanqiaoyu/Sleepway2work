@@ -3,15 +3,13 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 09:33:29
+@LastEditTime: 2020-07-01 12:35:57
 @FilePath: /Sleepway2work/Maxplus.py
 '''
 # -*- coself.ding: UTF-8 -*- 
 import uiautomator2 as u2
 import time
 from helper import logdeco
-#from connmysql import ConnDB
-
 
 class Maxplus():
 
@@ -52,17 +50,6 @@ class Maxplus():
       if nowGold:
          result["MaxplusGold"] = nowGold
       return result
-
-      '''
-      db = ConnDB()
-      # 创建游标
-      cursor = db.connect()
-      cursor.execute("SELECT itemCount FROM mytable where AppName='dotamax' and itemName='goldcoin'")
-      row_2 = cursor.fetchall()
-      print(row_2)
-
-      time.sleep(3)
-      '''
 
 
 

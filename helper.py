@@ -3,12 +3,13 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-29 23:21:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 17:30:48
+@LastEditTime: 2020-07-01 17:48:11
 @FilePath: /Sleepway2work/helper.py
 '''
 import time
 import logging, logging.handlers
 import os
+from sql import mysql
 
 '''
 @description: 由于UIAutomator也使用了logging这个库,需要重新定义自己的log类,才能输出到自己想要的文件里面
@@ -44,7 +45,8 @@ class LogMgr:
         if self.MARK is not None:
             self.MARK.info(msg)
 
-log_mgr = LogMgr()  
+log_mgr = LogMgr()
+
 
 def logdeco(func):
     def wrapper(*args, **kw):
@@ -54,10 +56,18 @@ def logdeco(func):
 
         dicResult = func(*args, **kw)
 
-        log_mgr.info('[{}]Running Time:{}'.format(func.__qualname__, time.time() - local_time))
-
         if dicResult:
+            sql = mysql()
             log_mgr.info('[{}]Result:{}'.format(func.__qualname__, dicResult))
+            if True == sql.UpdateMyData(dicResult):
+                log_mgr.info('[{}]Update Data Successfully!'.format(func.__qualname__))
+                sql.CommitAndClose()
+            else:
+                log_mgr.error('[{}]Update Data Fail!'.format(func.__qualname__))
+                sql.RollBackAndClose()
         log_mgr.info('[{}]Finish'.format(func.__qualname__ ))
+
+        log_mgr.info('[{}]Running Time:{}'.format(func.__qualname__, time.time() - local_time))
+        
         return dicResult
     return wrapper
