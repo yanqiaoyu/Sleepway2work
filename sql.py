@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-07-01 10:25:01
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-01 18:03:33
+@LastEditTime: 2020-07-01 22:53:01
 @FilePath: /Sleepway2work/sql.py
 '''
 import pymysql
@@ -12,7 +12,7 @@ class mysql:
 
     def __init__(self):
         # 打开数据库连接
-        
+        self.db = pymysql.connect("103.45.103.253","root","","sleepway2work")
         # 使用 cursor() 方法创建一个游标对象 cursor
         self.cursor = self.db.cursor()        
 
@@ -39,18 +39,17 @@ class mysql:
                 data = self.cursor.fetchone()
                 if str(data[0]) == ((newDic[key])):
                     #一致，无需更新
-                    return False
+                    continue
                 else:
                     print("Data is {}, New data is {}".format(data[0], newDic[key]))
                     #key: key , newValue:newDic[key] oldValue:data[0]
                     #把oldvalue 更新到 oldItemCount newvalue 更新到 itemCount
                     self.cursor.execute("update mytable set oldItemCount='{}' where itemName='{}';".format(data[0], key))
-                    self.cursor.execute("update mytable set itemCount='{}' where itemName='{}';".format(newDic[key], key))
-                    return True
+                    self.cursor.execute("update mytable set itemCount='{}' where itemName='{}';".format(newDic[key], key))                    
             except:
                 print("Something wrong")
                 return False
- 
+        return True
     def CommitAndClose(self):
         # 关闭数据库连接
         self.db.commit()

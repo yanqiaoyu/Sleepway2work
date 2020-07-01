@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 23:45:27
+@LastEditTime: 2020-07-01 22:32:39
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -264,10 +264,10 @@ class Alipay:
 
       #获取当前能量
       NowEnergy = self.d(resourceId="J_userEnergy").get_text()
-      #print("Now Energy is:"+NowEnergy)
       result = {}
       if NowEnergy:
-         result["Energy"] = NowEnergy
+         #过滤掉”g“这个单位
+         result["Energy"] = NowEnergy[:-1]
 
       time.sleep(self.Time2Wait)
       return result
@@ -279,19 +279,5 @@ class Alipay:
    '''
    def Test(self):
       pass
-      
-      Index = find_all(Template(self.ImgPath+"Energy.png"))
-      Index2 = find_all(Template(self.ImgPath+"Energy2.png"))
-      print("!!!!!!!!!!!!!!!",Index,Index2)
-      '''
-      Dic=find_all(Template(self.ImgPath+"Energy.png"))
-      time.sleep(self.Time2Wait)
-      #If Not Null
-      if Dic:
-         for i in Dic:   
-            touch(i['result'])
-            sleep(self.Time2Wait)
-      time.sleep(self.Time2Wait)
-      '''
    
    
