@@ -1,3 +1,11 @@
+<!--
+ * @Author: YanQiaoYu
+ * @Github: https://github.com/yanqiaoyu?tab=repositories
+ * @Date: 2020-07-01 22:11:14
+ * @LastEditors: YanQiaoYu
+ * @LastEditTime: 2020-07-01 22:54:27
+ * @FilePath: /Sleepway2work/README.md
+--> 
 # Sleepway2work
 让通勤时间拿来小憩，而不是点开各种APP进行签到
 
@@ -46,6 +54,6 @@ python3 sleepway2work.py
 - [x] 上线即可领取M币
 
 ## 未来可能会完成的事情
-- [ ] 每日签到完成后，收集当日的所有新数据，上传至个人服务器的数据库中
+- [x] 每日签到完成后，收集当日的所有新数据，上传至个人服务器的数据库中(已完成)
 - [ ] 数据库的数据，可以发送到我的个人公众号上
-- [x] 输出关键日志，记录每日签到的数据
+- [x] 输出关键日志，记录每日签到的数据(已完成)
