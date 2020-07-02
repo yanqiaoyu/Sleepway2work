@@ -4,3 +4,4 @@
 .vscode/settings.json
 *.pyc
 sleepway2work.log
+sql.py
