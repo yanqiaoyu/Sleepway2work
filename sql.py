@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-07-01 10:25:01
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-01 22:53:01
+@LastEditTime: 2020-07-02 08:26:58
 @FilePath: /Sleepway2work/sql.py
 '''
 import pymysql
@@ -12,7 +12,7 @@ class mysql:
 
     def __init__(self):
         # 打开数据库连接
-        self.db = pymysql.connect("103.45.103.253","root","","sleepway2work")
+        self.db = pymysql.connect("103.45.103.253","root","y","sleepway2work")
         # 使用 cursor() 方法创建一个游标对象 cursor
         self.cursor = self.db.cursor()        
 
