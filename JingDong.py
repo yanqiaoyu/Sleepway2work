@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-10 23:01:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-06-30 17:43:54
+@LastEditTime: 2020-07-02 11:06:42
 @FilePath: /Sleepway2work/JingDong.py
 '''
 
@@ -14,7 +14,7 @@ from helper import logdeco
 
 class JingDong:
     ImgPath = "./JingDongImg/"
-    Time2Wait = 6
+    Time2Wait = 8
     
     def __init__(self, d):
         self.d =  d
@@ -33,8 +33,11 @@ class JingDong:
 
             time.sleep(self.Time2Wait)
 
-            #进入个人页面
-            self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
+            try:
+                #进入个人页面
+                self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click(timeout=3)
+            except:
+                self.d.click(0.895, 0.945)
 
             time.sleep(self.Time2Wait)
 
@@ -134,8 +137,12 @@ class JingDong:
 
         time.sleep(self.Time2Wait)
 
-        #进入个人页面
-        self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
+        try:
+            #进入个人页面
+            self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click(timeout=3)
+        except:
+            self.d.click(0.895, 0.945)
+
 
         time.sleep(self.Time2Wait)
 
@@ -176,11 +183,14 @@ class JingDong:
 
             time.sleep(self.Time2Wait)
 
-            #进入个人页面
-            self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click()
-
+            try:
+                #进入个人页面
+                self.d(resourceId="com.jingdong.app.mall:id/xk", text="我的").click(timeout=3)        
+            except:
+                self.d.click(0.895, 0.945)
+                
             time.sleep(self.Time2Wait)
-
+            
             #这里本来想用遍历XPath的方式找到京豆的，但是Text为空
             JingDou = self.d(resourceId="com.jd.lib.personal:id/ah7").get_text()
 

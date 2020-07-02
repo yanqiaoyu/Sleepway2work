@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-01 22:45:30
+@LastEditTime: 2020-07-02 11:20:05
 @FilePath: /Sleepway2work/sleepway2work.py
 '''
 from Alipay import Alipay
@@ -29,6 +29,7 @@ b.Gold()
 c = JingDong(d)
 
 c.JingDou()
+
 c.GangBeng()
 c.JingTie()
 c.DoubleCheck()

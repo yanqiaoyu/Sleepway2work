@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-29 23:21:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-01 17:48:11
+@LastEditTime: 2020-07-02 11:14:19
 @FilePath: /Sleepway2work/helper.py
 '''
 import time
@@ -47,7 +47,11 @@ class LogMgr:
 
 log_mgr = LogMgr()
 
-
+'''
+@description: Log 装饰器
+@param {type} 
+@return: 
+'''
 def logdeco(func):
     def wrapper(*args, **kw):
         log_mgr.info('[{}]Begin'.format(func.__qualname__ ))
