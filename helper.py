@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-29 23:21:57
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-02 11:14:19
+@LastEditTime: 2020-07-03 08:57:21
 @FilePath: /Sleepway2work/helper.py
 '''
 import time
