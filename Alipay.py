@@ -3,7 +3,7 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-06-01 23:06:39
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-01 22:32:39
+@LastEditTime: 2020-07-04 10:35:41
 @FilePath: /Sleepway2work/Alipay.py
 '''
 import time
@@ -249,24 +249,36 @@ class Alipay:
          self.d(text="关闭蒙层").click()
       
       time.sleep(self.Time2Wait)
+
+      '''
       #收集能量
       #广告中也可能存在能量球被匹配到
       Dic=find_all(Template(self.ImgPath+"Energy.png"))
       if not Dic:
          Dic = find_all(Template(self.ImgPath+"Energy2.png"))
       time.sleep(self.Time2Wait)
-      #If Not Null
+      #字典非空意味着至少匹配到了一个
       if Dic:
          for i in Dic:   
             touch(i['result'])
             sleep(self.Time2Wait)
+      time.sleep(self.Time2Wait)
+      #然而实际中还是会有匹配不到可能性，为了解决这个问题
+      #无论是否匹配到，强制点击蚂蚁森林上方的四个点位，尽可能的点到能量球
+      '''
+
+      #阿里终于对这些小元素做了单独的路径了，现在已经可以通过XPath里特定的文本识别了
+      #感天动地
+      for i in self.d.xpath("//*[contains(@text, '收集能量')]").all():
+         d.click(i.center()[0],i.center()[1])
+
       time.sleep(self.Time2Wait)
 
       #获取当前能量
       NowEnergy = self.d(resourceId="J_userEnergy").get_text()
       result = {}
       if NowEnergy:
-         #过滤掉”g“这个单位
+         #过滤掉”g“这个单位,防止注入数据库失败
          result["Energy"] = NowEnergy[:-1]
 
       time.sleep(self.Time2Wait)

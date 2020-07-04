@@ -3,8 +3,8 @@
 @Github: https://github.com/yanqiaoyu?tab=repositories
 @Date: 2020-07-01 10:25:01
 @LastEditors: YanQiaoYu
-@LastEditTime: 2020-07-04 10:01:44
-@FilePath: /Sleepway2work/sql.py
+@LastEditTime: 2020-07-04 10:14:20
+@FilePath: /Sleepway2work/demosql.py
 '''
 import pymysql
 
